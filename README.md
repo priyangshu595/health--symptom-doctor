@@ -194,3 +194,11 @@ Always consult a qualified healthcare professional for medical concerns.
 * 🌍 Multi-language support
 * ☁️ Cloud deployment (Render / Vercel / AWS)
 * 📱 Mobile-friendly UI improvements
+
+---
+
+## 📸 Screenshots
+
+<img width="804" height="602" alt="image" src="https://github.com/user-attachments/assets/82fe3356-7b5c-433a-922a-e21d0254c931" />
+
+<img width="778" height="603" alt="image" src="https://github.com/user-attachments/assets/812c3b95-90ae-473a-b476-c786bb495079" />

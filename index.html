@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Healthcare Symptom Checker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 80px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #4facfe;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #007bff;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f1f5f9;
+        }
+
+        .section {
+            margin-bottom: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .severity-low { color: green; }
+        .severity-medium { color: orange; }
+        .severity-high { color: red; }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🩺 Healthcare Symptom Checker</h1>
+    <p>Enter your symptoms to get possible conditions and recommendations</p>
+
+    <form id="form">
+        <input type="text" id="symptoms" placeholder="e.g. fever, headache">
+        <button type="submit">Analyze</button>
+    </form>
+
+    <div class="result" id="result" style="display:none;"></div>
+</div>
+
+<script>
+document.getElementById("form").onsubmit = async (e) => {
+    e.preventDefault();
+
+    let symptoms = document.getElementById("symptoms").value;
+    let resultDiv = document.getElementById("result");
+
+    resultDiv.style.display = "block";
+    resultDiv.innerHTML = "⏳ Analyzing...";
+
+    let res = await fetch("http://127.0.0.1:8000/analyze", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ symptoms })
+    });
+
+    let data = await res.json();
+
+    let severityClass = "";
+    if (data.severity.toLowerCase() === "low") severityClass = "severity-low";
+    else if (data.severity.toLowerCase() === "medium") severityClass = "severity-medium";
+    else severityClass = "severity-high";
+
+    resultDiv.innerHTML = `
+        <div class="section">
+            <span class="label">🧾 Conditions:</span><br>
+            ${data.conditions.join(", ")}
+        </div>
+
+        <div class="section">
+            <span class="label">⚠️ Severity:</span>
+            <span class="${severityClass}">${data.severity}</span>
+        </div>
+
+        <div class="section">
+            <span class="label">💡 Recommendations:</span>
+            <ul>
+                ${data.recommendations.map(r => `<li>${r}</li>`).join("")}
+            </ul>
+        </div>
+
+        <div class="section">
+            <span class="label">👨‍⚕️ Doctor Visit:</span><br>
+            ${data.doctor_visit}
+        </div>
+
+        <div class="section">
+            <span class="label">📢 Disclaimer:</span><br>
+            <i>${data.disclaimer}</i>
+        </div>
+    `;
+};
+</script>
+
+</body>
+</html>

@@ -174,8 +174,7 @@ Always consult a qualified healthcare professional for medical concerns.
 
 ## 🎥 Demo Video
 
-👉 *[Add your demo video link here]*
-
+👉 https://drive.google.com/file/d/10D08Zmm2k-kigCx8qXDFVtxpThK-KsC9/view?usp=sharing
 ---
 
 ## 🌟 Highlights

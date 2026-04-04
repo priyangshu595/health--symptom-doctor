@@ -165,13 +165,6 @@ POST /analyze
 
 ---
 
-## ⚠️ Disclaimer
-
-This application is intended for **educational purposes only** and does not provide medical advice, diagnosis, or treatment.
-Always consult a qualified healthcare professional for medical concerns.
-
----
-
 ## 🎥 Demo Video
 
 👉 https://drive.google.com/file/d/10D08Zmm2k-kigCx8qXDFVtxpThK-KsC9/view?usp=sharing
